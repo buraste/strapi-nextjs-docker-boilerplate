@@ -1,0 +1,88 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    container_name: ${PROJECT_SLUG}_nginx
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - internal
+    volumes:
+      - ./backend/public:/app/backend/public
+      - ./frontend/public:/app/frontend/public
+      - ./conf/nginx/:/etc/nginx:ro
+      - ./logs/nginx/:/var/log/nginx
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - frontend
+      - backend
+
+  frontend:
+    container_name: ${PROJECT_SLUG}_frontend
+    build:
+      context: .
+      dockerfile: ./docker/frontend/${ENVIRONMENT}/Dockerfile
+    restart: unless-stopped
+    networks:
+      - internal
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+      - ./logs/frontend:/root/.npm/_logs
+    env_file:
+      - ./.env
+
+  backend:
+    container_name: ${PROJECT_SLUG}_backend
+    build:
+      context: .
+      dockerfile: ./docker/backend/${ENVIRONMENT}/Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: postgres
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      NODE_ENV: ${ENVIRONMENT}
+    volumes:
+      - ./conf/backend:/opt/app/config
+      - ./backend/src:/opt/app/src
+      - ./backend/package.json:/opt/package.json
+      - ./backend/yarn.lock:/opt/yarn.lock
+      - ./.env:/opt/app/.env
+    networks:
+      - internal
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:12.0-alpine
+    container_name: ${PROJECT_SLUG}_postgres
+    platform: linux/amd64
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/ #using a volume
+      #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
+    networks:
+      - internal
+
+volumes:
+  postgres-data:
+
+networks:
+  internal:
+    name: Internal
+    driver: bridge

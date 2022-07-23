@@ -1,0 +1,14 @@
+.tmp/
+.cache/
+.git/
+build/
+node_modules/
+data/
+.gitignore
+.next/
+.dockerignore
+Dockerfile
+docker-compose.yml
+nginx/
+node-modules
+node-modules/
