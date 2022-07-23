@@ -24,6 +24,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/frontend/${ENVIRONMENT}/Dockerfile
+      args:
+        - NODE_ENV=${ENVIRONMENT}
     restart: unless-stopped
     networks:
       - internal
@@ -40,6 +42,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/backend/${ENVIRONMENT}/Dockerfile
+      args:
+        - NODE_ENV=${ENVIRONMENT}
     restart: unless-stopped
     env_file: .env
     environment:
@@ -53,8 +57,8 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       NODE_ENV: ${ENVIRONMENT}
     volumes:
-      - ./conf/backend:/opt/app/config
-      - ./backend/src:/opt/app/src
+      - ./backend/src:/app/src
+      - ./backend/public:/app/public
       - ./backend/package.json:/opt/package.json
       - ./backend/yarn.lock:/opt/yarn.lock
       - ./.env:/opt/app/.env

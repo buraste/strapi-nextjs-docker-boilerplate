@@ -3,7 +3,8 @@
 .git/
 build/
 node_modules/
-data/
+node_modules
+*backend/node_modules*
 .gitignore
 .next/
 .dockerignore
