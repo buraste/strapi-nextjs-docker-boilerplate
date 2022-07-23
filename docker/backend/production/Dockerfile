@@ -13,7 +13,7 @@ WORKDIR /app
 COPY ./backend/package*.json ./backend/yarn.lock /app/
 COPY ./.env /app/
 
-ENV PATH /opt/node_modules/.bin:$PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
 # Install dependencies in /app
 RUN yarn config set network-timeout 600000 -g && yarn install
