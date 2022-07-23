@@ -39,7 +39,7 @@ For more information on contributing please see [the contrib message below](#con
 ## Features & Stacks
 
 #### Backend
-- Strapi v4.2 🎉
+- Strapi v4
 - Node.js v16 for Docker Image
 - Yarn package manager
 #### Frontend
@@ -103,7 +103,9 @@ If interested please feel free to email the maintainer Burak at: hello@buraste.c
 
 ## Authors
 
-- [@burakibis](https://github.com/burakibis)
+- Burak Ibis:
+	- Github: [@buraste](https://github.com/buraste)
+	- Twitter: [@helloburaste](https://twitter.com/helloburaste)
 
 ## License
 
