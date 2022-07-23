@@ -91,13 +91,13 @@ docker-compose pull
 ```bash
 docker-compose build && docker-compose up -d
 ```
-- Now you can access to Next.js frontend on `http://localhost` and Strapi backend on `http://localhost/admin`
+- Now you can access to Next.js frontend on `http://localhost` and Strapi backend (admin) on `http://localhost/strapi/admin`
 - Register with your e-mail and password.
 - Go to `Content-Type Builder`, It has sample content type as `Article` and this content type has three field as `title` `body` and `cover`.
 - For creating new `Article`, go to `Content Manager`and click `Article`on left pane, click `Create new entry`and fill the blanks > click Publish!
 - For testing API endpoint you need to give public access to the `Article` so
 	- Go to `Settings`>`User & Permissions Plugin`>`Roles`>`Public`>`Article`and select `find` `findOne`, If you need more, select what you want and save!
-	- Go to the `http://localhost/api/articles`
+	- Go to the `http://localhost/strapi/api/articles`
 
 ## Security for Endpoints
 Secure all your Strapi related endpoints in Nginx, make sure to use API tokens to connect to the backend and keep this information private. The Nginx config that on the repo is for development, not production ⛔️

@@ -57,11 +57,9 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       NODE_ENV: ${ENVIRONMENT}
     volumes:
-      - ./backend/src:/app/src
-      - ./backend/public:/app/public
-      - ./backend/package.json:/opt/package.json
-      - ./backend/yarn.lock:/opt/yarn.lock
-      - ./.env:/opt/app/.env
+      - ./backend:/app
+      - /app/node_modules
+      - ./.env:/app/.env
     networks:
       - internal
     depends_on:
@@ -78,8 +76,7 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
-      - postgres-data:/var/lib/postgresql/data/ #using a volume
-      #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
+      - postgres-data:/var/lib/postgresql/data/
     networks:
       - internal
 
@@ -88,5 +85,5 @@ volumes:
 
 networks:
   internal:
-    name: Internal
+    name: ${PROJECT_SLUG}_internal
     driver: bridge
