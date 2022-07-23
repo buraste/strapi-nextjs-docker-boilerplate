@@ -1,6 +1,7 @@
 # Dockerfile
 # Use node alpine as it's a small node image
 FROM node:alpine
+ARG NODE_ENV
 
 ENV PORT 3005
 
@@ -21,6 +22,9 @@ RUN yarn config set network-timeout 600000 -g && yarn install
 
 # Copy the rest of our Next.js folder into /app
 COPY ./frontend /app
+
+# For production build
+ENV NODE_ENV=${NODE_ENV}
 
 # Build app
 RUN yarn build
