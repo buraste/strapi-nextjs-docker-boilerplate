@@ -1,7 +1,14 @@
 
 <div align="center">
-<h1>Strapi - Next.js - Docker Boilerplate</h1>
-	
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/44535256/180598361-505e938a-dff5-4845-9fb7-6f0a7b8d0682.png" alt="Logo"/>
+</p>
+
+<p align="center">
+  <a href="https://twitter.com/helloburaste">
+    <img alt="Twitter: Hello Buraste" src="https://img.shields.io/twitter/follow/helloburaste?style=social" target="_blank" />
+  </a>
+</p>
 <p style="margin-top: 0;">Dockerize your Strapi v4 backend with Next.js and Nginx Support 🚀</p>
 	</div>
 
